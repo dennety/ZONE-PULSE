@@ -1,0 +1,35 @@
+# Godot 4+ cache e dados internos do editor
+.godot/
+
+# Cache de importação (Godot 3 e anteriores)
+.import/
+
+# Configurações de exportação (descomente se não quiser versionar presets de build)
+# export_presets.cfg
+
+# Traduções compiladas importadas
+*.translation
+
+# C# / Godot Mono
+.mono/
+data_*/
+mono_crash.*.json
+[Bb]in/
+[Oo]bj/
+*.csproj
+*.sln
+
+# Logs e dumps de crash
+core
+vgcore.*
+
+# Arquivos do sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.swp
+
