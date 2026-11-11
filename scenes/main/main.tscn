@@ -10,3 +10,4 @@ script = ExtResource("1_main")
 [node name="TestRoom" parent="." instance=ExtResource("3_room")]
 
 [node name="HUD" parent="." instance=ExtResource("2_hud")]
+

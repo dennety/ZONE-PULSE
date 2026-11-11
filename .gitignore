@@ -19,6 +19,11 @@ mono_crash.*.json
 *.csproj
 *.sln
 
+# Executáveis da Engine e Builds
+*.exe
+*.zip
+Godot_v4*/
+
 # Logs e dumps de crash
 core
 vgcore.*

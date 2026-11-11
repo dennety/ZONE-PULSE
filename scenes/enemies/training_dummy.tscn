@@ -29,3 +29,4 @@ shape = SubResource("CylinderShape3D_d1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("CylinderMesh_dm2")
+

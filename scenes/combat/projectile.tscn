@@ -26,3 +26,4 @@ shape = SubResource("SphereShape3D_s1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_m2")
+

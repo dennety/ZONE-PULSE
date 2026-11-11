@@ -29,3 +29,4 @@ func take_damage(amount: int) -> void:
 	if current_health <= 0:
 		print("Alvo destruído! Reiniciando alvo para novos testes...")
 		current_health = max_health
+

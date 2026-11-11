@@ -13,3 +13,4 @@ func _physics_process(delta: float) -> void:
 	global_position.x = lerp(global_position.x, target_x, smooth_speed * delta)
 	global_position.y = lerp(global_position.y, target_y, smooth_speed * delta)
 	global_position.z = offset.z
+

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnet001"]
+
+[ext_resource type="Script" path="res://scripts/capture_net.gd" id="1_cnet"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ns1"]
+radius = 0.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_net"]
+transparency = 1
+albedo_color = Color(1, 0.75, 0.1, 0.75)
+emission_enabled = true
+emission = Color(1, 0.75, 0.1, 1)
+emission_energy_multiplier = 2.0
+rim_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_nm1"]
+material = SubResource("StandardMaterial3D_net")
+radius = 0.55
+height = 1.1
+radial_segments = 16
+rings = 8
+
+[node name="CaptureNet" type="Area3D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_cnet")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ns1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_nm1")
