@@ -13,3 +13,4 @@ func evacuate() -> void:
 	await tween.finished
 	emit_signal("evacuated")
 	visible = false
+

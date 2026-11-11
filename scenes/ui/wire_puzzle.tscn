@@ -148,3 +148,4 @@ text = "■ GND (Aterramento / Amarelo)"
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "▲ PWR (Alimentação / Vermelho)"
+

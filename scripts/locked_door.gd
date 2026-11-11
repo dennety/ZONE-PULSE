@@ -31,3 +31,4 @@ func open() -> void:
 func update_visuals() -> void:
 	if status_light:
 		status_light.light_color = Color(0.2, 1.0, 0.4) if is_open else Color(1.0, 0.2, 0.1)
+

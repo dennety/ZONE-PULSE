@@ -34,3 +34,4 @@ func set_active(active: bool) -> void:
 	is_active = active
 	if player_inside:
 		emit_signal("prompt_visibility_changed", is_active, prompt_text if is_active else "")
+

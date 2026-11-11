@@ -78,3 +78,4 @@ func enable_buttons(enabled: bool) -> void:
 func _on_cancel() -> void:
 	visible = false
 	emit_signal("puzzle_cancelled")
+

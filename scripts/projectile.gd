@@ -7,6 +7,7 @@ extends Area3D
 var direction: float = 1.0 # 1.0 = Direita, -1.0 = Esquerda
 
 func _ready() -> void:
+	add_to_group("player_projectiles")
 	global_position.z = 0.0
 	# Destrói automaticamente após expirar o tempo de vida
 	var timer := get_tree().create_timer(lifetime)

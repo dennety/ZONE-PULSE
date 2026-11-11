@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccrate001"]
+
+[ext_resource type="Script" path="res://scripts/destructible_crate.gd" id="1_crate"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cs"]
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm"]
+albedo_color = Color(0.55, 0.45, 0.32, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_cmesh"]
+material = SubResource("StandardMaterial3D_cm")
+size = Vector3(1.2, 1.2, 1.2)
+
+[node name="DestructibleCrate" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_crate")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_cs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_cmesh")

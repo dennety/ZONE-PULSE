@@ -2,17 +2,26 @@ extends Node
 
 @onready var hud: CanvasLayer = $HUD
 @onready var test_room: Node3D = $TestRoom
+@onready var dialogue_controller: Node = $DialogueController
 
 func _ready() -> void:
 	if not test_room or not hud:
 		return
+
+	# Conecta controlador de diálogos ao HUD
+	if dialogue_controller and dialogue_controller.has_signal("dialogue_message"):
+		dialogue_controller.dialogue_message.connect(hud.show_dialogue)
 
 	var player := test_room.get_node_or_null("Player")
 	if player:
 		if player.has_signal("health_changed") and hud.has_method("update_health"):
 			player.health_changed.connect(hud.update_health)
 		if player.has_signal("capture_state_changed") and hud.has_method("on_capture_state_changed"):
-			player.capture_state_changed.connect(hud.on_capture_state_changed)
+			player.capture_state_changed.connect(func(is_captured: bool, remaining: int):
+				hud.on_capture_state_changed(is_captured, remaining)
+				if is_captured and dialogue_controller:
+					dialogue_controller.trigger_event("net_warning")
+			)
 			
 		# Bloqueia/libera controles de Lia durante interação com puzzles
 		if hud.has_signal("puzzle_opened"):
@@ -32,6 +41,26 @@ func _ready() -> void:
 			rescue_sector.request_open_panel_puzzle.connect(hud.open_panel_puzzle)
 
 		if hud.has_signal("wire_puzzle_completed"):
-			hud.wire_puzzle_completed.connect(rescue_sector.on_wire_puzzle_completed)
+			hud.wire_puzzle_completed.connect(func():
+				rescue_sector.on_wire_puzzle_completed()
+				if dialogue_controller:
+					dialogue_controller.trigger_event("wires_connected")
+			)
 		if hud.has_signal("panel_puzzle_completed"):
-			hud.panel_puzzle_completed.connect(rescue_sector.on_panel_puzzle_completed)
+			hud.panel_puzzle_completed.connect(func():
+				rescue_sector.on_panel_puzzle_completed()
+				if dialogue_controller:
+					dialogue_controller.trigger_event("shelter_opened")
+			)
+
+		# Evento de queda do drone dentro do setor
+		var drone = rescue_sector.get_node_or_null("CaptureDrone")
+		if drone:
+			if drone.has_signal("drone_fell") and dialogue_controller:
+				drone.drone_fell.connect(func(): dialogue_controller.trigger_event("drone_down"))
+
+	# Diálogo inicial ao iniciar a fase
+	if dialogue_controller:
+		get_tree().create_timer(1.2).timeout.connect(func():
+			dialogue_controller.trigger_event("drone_encounter")
+		)

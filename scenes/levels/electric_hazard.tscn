@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://chazard001"]
+
+[ext_resource type="Script" path="res://scripts/electric_hazard.gd" id="1_hazard"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hs"]
+size = Vector3(3.2, 1.2, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bm"]
+albedo_color = Color(0.2, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.2, 0.8, 1, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_bmesh"]
+material = SubResource("StandardMaterial3D_bm")
+size = Vector3(3.2, 0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pole"]
+albedo_color = Color(0.2, 0.22, 0.26, 1)
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_pole"]
+material = SubResource("StandardMaterial3D_pole")
+size = Vector3(0.4, 1.6, 0.4)
+
+[node name="ElectricHazard" type="Node3D"]
+script = ExtResource("1_hazard")
+
+[node name="LeftPole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.8, 0)
+mesh = SubResource("BoxMesh_pole")
+
+[node name="RightPole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.8, 0)
+mesh = SubResource("BoxMesh_pole")
+
+[node name="BeamMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+visible = false
+mesh = SubResource("BoxMesh_bmesh")
+
+[node name="SparkLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0.5)
+visible = false
+light_color = Color(1, 0.8, 0.1, 1)
+light_energy = 3.0
+omni_range = 3.5
+
+[node name="HazardArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HazardArea"]
+shape = SubResource("BoxShape3D_hs")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

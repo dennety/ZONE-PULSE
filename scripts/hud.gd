@@ -11,8 +11,14 @@ signal puzzle_closed
 @onready var capture_alert: Label = $CenterContainer/CaptureAlert
 @onready var prompt_label: Label = $BottomContainer/PromptLabel
 
+@onready var dialogue_box: PanelContainer = $TopRightContainer/DialogueBox
+@onready var speaker_label: Label = $TopRightContainer/DialogueBox/MarginContainer/VBoxContainer/SpeakerLabel
+@onready var message_label: Label = $TopRightContainer/DialogueBox/MarginContainer/VBoxContainer/MessageLabel
+
 @onready var wire_puzzle: Control = $WirePuzzle
 @onready var panel_puzzle: Control = $PanelPuzzle
+
+var dialogue_hide_timer: SceneTreeTimer = null
 
 func _ready() -> void:
 	update_health(3, 3)
@@ -20,6 +26,8 @@ func _ready() -> void:
 		capture_alert.visible = false
 	if prompt_label:
 		prompt_label.visible = false
+	if dialogue_box:
+		dialogue_box.visible = false
 		
 	if wire_puzzle:
 		if wire_puzzle.has_signal("puzzle_completed"):
@@ -54,6 +62,27 @@ func on_capture_state_changed(is_captured: bool, pulses_remaining: int) -> void:
 		capture_alert.visible = is_captured
 		if is_captured:
 			capture_alert.text = "⚠️ PRESA NA REDE! DISPARE PARA ROMPER!\n(Pulsos restantes: %d)" % pulses_remaining
+
+func show_dialogue(speaker: String, text: String) -> void:
+	if not dialogue_box:
+		return
+	dialogue_box.visible = true
+	speaker_label.text = speaker
+	if speaker.begins_with("Lia"):
+		speaker_label.set("theme_override_colors/font_color", Color(0.18, 0.9, 1.0))
+	elif speaker.begins_with("Nilo"):
+		speaker_label.set("theme_override_colors/font_color", Color(1.0, 0.65, 0.1))
+	else:
+		speaker_label.set("theme_override_colors/font_color", Color(0.3, 1.0, 0.5))
+	
+	message_label.text = "“" + text + "”"
+	
+	var current_time := Time.get_ticks_msec()
+	dialogue_box.set_meta("timestamp", current_time)
+	get_tree().create_timer(3.0).timeout.connect(func():
+		if is_instance_valid(dialogue_box) and dialogue_box.get_meta("timestamp", 0) == current_time:
+			dialogue_box.visible = false
+	)
 
 func open_wire_puzzle() -> void:
 	if wire_puzzle and wire_puzzle.has_method("open_puzzle"):

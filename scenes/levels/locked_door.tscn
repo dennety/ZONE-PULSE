@@ -45,3 +45,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 1)
 light_color = Color(1, 0.2, 0.1, 1)
 light_energy = 2.5
 omni_range = 3.0
+

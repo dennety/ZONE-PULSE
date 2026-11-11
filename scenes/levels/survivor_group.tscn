@@ -34,3 +34,4 @@ mesh = SubResource("CapsuleMesh_lead")
 [node name="Civilian2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.7, 0)
 mesh = SubResource("CapsuleMesh_sm")
+

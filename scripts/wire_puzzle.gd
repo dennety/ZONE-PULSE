@@ -104,3 +104,4 @@ func get_source_button(type: String) -> Button:
 func _on_cancel() -> void:
 	visible = false
 	emit_signal("puzzle_cancelled")
+
