@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnet001"]
+[gd_scene format=3 uid="uid://cnet001"]
 
 [ext_resource type="Script" path="res://scripts/capture_net.gd" id="1_cnet"]
 
@@ -30,3 +30,4 @@ shape = SubResource("SphereShape3D_ns1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_nm1")
+

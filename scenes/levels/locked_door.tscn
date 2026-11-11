@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdoor001"]
+
+[ext_resource type="Script" path="res://scripts/locked_door.gd" id="1_door"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds"]
+size = Vector3(0.6, 3.6, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm"]
+albedo_color = Color(0.2, 0.22, 0.26, 1)
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_dm"]
+material = SubResource("StandardMaterial3D_dm")
+size = Vector3(0.6, 3.6, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frame"]
+albedo_color = Color(0.35, 0.38, 0.44, 1)
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_frame"]
+material = SubResource("StandardMaterial3D_frame")
+size = Vector3(0.8, 4.0, 2.8)
+
+[node name="LockedDoor" type="Node3D"]
+script = ExtResource("1_door")
+
+[node name="DoorFrame" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_frame")
+
+[node name="DoorBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBody"]
+shape = SubResource("BoxShape3D_ds")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorBody"]
+mesh = SubResource("BoxMesh_dm")
+
+[node name="StatusLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 1)
+light_color = Color(1, 0.2, 0.1, 1)
+light_energy = 2.5
+omni_range = 3.0

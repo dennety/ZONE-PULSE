@@ -1,0 +1,150 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwirepuzzle001"]
+
+[ext_resource type="Script" path="res://scripts/wire_puzzle.gd" id="1_wire"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.1, 0.12, 0.16, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.18, 0.9, 1, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="WirePuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wire")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="BtnClose" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+text = "Fechar [ESC]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 14.0
+offset_bottom = 70.0
+grow_horizontal = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "MANUTENÇÃO // RESTABELECER CONEXÕES DE ENERGIA"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Selecione uma Origem e conecte ao Destino correspondente."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -60.0
+offset_right = 240.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="SourcesVBox" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="Label" parent="Panel/HBoxContainer/SourcesVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "--- TERMINAIS DE ORIGEM ---"
+horizontal_alignment = 1
+
+[node name="BtnSrcPWR" type="Button" parent="Panel/HBoxContainer/SourcesVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "▲ PWR (Alimentação / Vermelho)"
+
+[node name="BtnSrcDATA" type="Button" parent="Panel/HBoxContainer/SourcesVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "● DATA (Transmissão / Azul)"
+
+[node name="BtnSrcGND" type="Button" parent="Panel/HBoxContainer/SourcesVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "■ GND (Aterramento / Amarelo)"
+
+[node name="DestinationsVBox" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="Label" parent="Panel/HBoxContainer/DestinationsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.8, 1, 1)
+text = "--- TERMINAIS DE DESTINO ---"
+horizontal_alignment = 1
+
+[node name="BtnDstDATA" type="Button" parent="Panel/HBoxContainer/DestinationsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "● DATA (Transmissão / Azul)"
+
+[node name="BtnDstGND" type="Button" parent="Panel/HBoxContainer/DestinationsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "■ GND (Aterramento / Amarelo)"
+
+[node name="BtnDstPWR" type="Button" parent="Panel/HBoxContainer/DestinationsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "▲ PWR (Alimentação / Vermelho)"

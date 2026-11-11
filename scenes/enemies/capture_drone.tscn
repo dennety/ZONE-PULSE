@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdrone001"]
+[gd_scene format=3 uid="uid://cdrone001"]
 
 [ext_resource type="Script" path="res://scripts/capture_drone.gd" id="1_drone"]
 
@@ -64,3 +64,4 @@ omni_range = 4.0
 
 [node name="StateTimer" type="Timer" parent="."]
 one_shot = true
+

@@ -3,8 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/training_dummy.tscn" id="2_dummy"]
 [ext_resource type="Script" path="res://scripts/camera_follow.gd" id="3_cam"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/patrol_bot.tscn" id="4_pbot"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/capture_drone.tscn" id="5_drone"]
+[ext_resource type="PackedScene" path="res://scenes/levels/rescue_sector.tscn" id="4_rescue"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.24, 0.42, 0.65, 1)
@@ -24,7 +23,7 @@ ambient_light_energy = 0.6
 tonemap_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
-size = Vector3(44, 1, 4)
+size = Vector3(60, 1, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
 albedo_color = Color(0.28, 0.3, 0.34, 1)
@@ -32,7 +31,7 @@ roughness = 0.8
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 material = SubResource("StandardMaterial3D_floor")
-size = Vector3(44, 1, 4)
+size = Vector3(60, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_plat"]
 size = Vector3(4, 0.4, 3)
@@ -52,7 +51,7 @@ roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_bg"]
 material = SubResource("StandardMaterial3D_bg")
-size = Vector3(48, 14, 1)
+size = Vector3(64, 14, 1)
 
 [node name="TestRoom" type="Node3D"]
 
@@ -80,7 +79,7 @@ shape = SubResource("BoxShape3D_ground")
 mesh = SubResource("BoxMesh_floor")
 
 [node name="Platform1" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.2, 0)
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform1"]
@@ -90,7 +89,7 @@ shape = SubResource("BoxShape3D_plat")
 mesh = SubResource("BoxMesh_plat")
 
 [node name="Platform2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.8, 0)
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform2"]
@@ -99,37 +98,17 @@ shape = SubResource("BoxShape3D_plat")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform2"]
 mesh = SubResource("BoxMesh_plat")
 
-[node name="Platform3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.2, 0)
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform3"]
-shape = SubResource("BoxShape3D_plat")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform3"]
-mesh = SubResource("BoxMesh_plat")
+[node name="TrainingDummyPlatform" parent="." instance=ExtResource("2_dummy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4.0, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.1, 0)
 
-[node name="PatrolBot" parent="." instance=ExtResource("4_pbot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, 0)
-
-[node name="CaptureDrone" parent="." instance=ExtResource("5_drone")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4.5, 0)
-patrol_min_x = 4.0
-patrol_max_x = 12.0
-patrol_height = 4.5
-attack_height = 0.9
-
-[node name="TrainingDummyPlatform" parent="." instance=ExtResource("2_dummy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.2, 0)
-
-[node name="TrainingDummyGround" parent="." instance=ExtResource("2_dummy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
+[node name="RescueSector" parent="." instance=ExtResource("4_rescue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.5, 12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 12)
 projection = 1
 size = 9.0
 script = ExtResource("3_cam")

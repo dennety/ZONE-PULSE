@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpanelpuzzle001"]
+
+[ext_resource type="Script" path="res://scripts/panel_puzzle.gd" id="1_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbg"]
+bg_color = Color(0.1, 0.12, 0.16, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.5, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PanelPuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_panel")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -190.0
+offset_right = 280.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pbg")
+
+[node name="BtnClose" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+text = "Fechar [ESC]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "PAINEL DE SEGURANÇA // BYPASS DO ABRIGO 07"
+horizontal_alignment = 1
+
+[node name="SequenceDisplay" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+text = "CÓDIGO DE BYPASS REQUERIDO:
+[ ▲ ALFA ]  ➔  [ ■ BETA ]  ➔  [ ◆ GAMA ]"
+horizontal_alignment = 1
+
+[node name="InputDisplay" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "ENTRADA ATUAL: [ ___ ]  [ ___ ]  [ ___ ]"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 13
+text = "Digite os símbolos na ordem indicada pela sequência de bypass."
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="BtnAlfa" type="Button" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "▲ ALFA"
+
+[node name="BtnBeta" type="Button" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "■ BETA"
+
+[node name="BtnGama" type="Button" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "◆ GAMA"
+
+[node name="BtnDelta" type="Button" parent="Panel/GridContainer"]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "● DELTA"

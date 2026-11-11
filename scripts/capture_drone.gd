@@ -165,3 +165,4 @@ func flash_visual(color: Color) -> void:
 			if is_instance_valid(core_mesh):
 				core_mesh.set_surface_override_material(0, null)
 		)
+
