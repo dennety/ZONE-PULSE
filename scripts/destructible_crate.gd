@@ -39,3 +39,4 @@ func flash_feedback() -> void:
 			if is_instance_valid(mesh_instance):
 				mesh_instance.set_surface_override_material(0, null)
 		)
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://chud001"]
+[gd_scene load_steps=7 format=3 uid="uid://chud001"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/wire_puzzle.tscn" id="2_wire"]
@@ -10,6 +10,32 @@ border_width_left = 3
 border_color = Color(0.18, 0.9, 1, 0.8)
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.12, 0.14, 0.18, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(1, 0.25, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_victory"]
+bg_color = Color(0.08, 0.12, 0.16, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.5, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
@@ -49,6 +75,27 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 0.8)
 theme_override_font_sizes/font_size = 13
 text = "[A/D ou Setas] Mover  •  [Espaço / W] Pular  •  [J / X / Clique] Disparo de Pulso  •  [E] Interagir  •  [R] Reiniciar"
+
+[node name="BossContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BossNameLabel" type="Label" parent="MarginContainer/VBoxContainer/BossContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+text = "CHEFE // UNIDADE B-04 [SISTEMA DE BOMBEAMENTO]"
+
+[node name="BossProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/BossContainer"]
+custom_minimum_size = Vector2(400, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
+max_value = 8.0
+value = 8.0
+show_percentage = false
 
 [node name="TopRightContainer" type="MarginContainer" parent="."]
 anchors_preset = 1
@@ -136,3 +183,81 @@ visible = false
 
 [node name="PanelPuzzle" parent="." instance=ExtResource("3_panel")]
 visible = false
+
+[node name="VictoryPanel" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="VictoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Panel" type="Panel" parent="VictoryPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -140.0
+offset_right = 280.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_victory")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VictoryPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="VictoryPanel/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 22
+text = "★ MISSÃO CUMPRIDA! ★"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VictoryPanel/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "A Estação B-04 foi neutralizada e os sobreviventes do Abrigo 07 foram resgatados com sucesso!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="BtnRestart" type="Button" parent="VictoryPanel/Panel"]
+custom_minimum_size = Vector2(180, 42)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -60.0
+offset_right = 90.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar Novamente [R]"

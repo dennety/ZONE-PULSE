@@ -22,3 +22,4 @@ func _on_body_entered(body: Node3D) -> void:
 		queue_free()
 	elif not body.is_in_group("enemies"):
 		queue_free()
+

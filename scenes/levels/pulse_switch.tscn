@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cswitch001"]
+[gd_scene format=3 uid="uid://cswitch001"]
 
 [ext_resource type="Script" path="res://scripts/pulse_switch.gd" id="1_switch"]
 
@@ -31,3 +31,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
 light_color = Color(1, 0.2, 0.1, 1)
 light_energy = 2.5
 omni_range = 2.5
+

@@ -64,3 +64,4 @@ func set_active() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if state == State.ACTIVE and body.is_in_group("player") and body.has_method("take_damage"):
 		body.take_damage(1)
+

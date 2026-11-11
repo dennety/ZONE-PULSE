@@ -11,14 +11,19 @@ signal puzzle_closed
 @onready var capture_alert: Label = $CenterContainer/CaptureAlert
 @onready var prompt_label: Label = $BottomContainer/PromptLabel
 
+@onready var boss_container: VBoxContainer = $MarginContainer/VBoxContainer/BossContainer
+@onready var boss_name_label: Label = $MarginContainer/VBoxContainer/BossContainer/BossNameLabel
+@onready var boss_health_bar: ProgressBar = $MarginContainer/VBoxContainer/BossContainer/BossProgressBar
+
+@onready var victory_panel: Control = $VictoryPanel
+@onready var btn_restart_victory: Button = $VictoryPanel/Panel/BtnRestart
+
 @onready var dialogue_box: PanelContainer = $TopRightContainer/DialogueBox
 @onready var speaker_label: Label = $TopRightContainer/DialogueBox/MarginContainer/VBoxContainer/SpeakerLabel
 @onready var message_label: Label = $TopRightContainer/DialogueBox/MarginContainer/VBoxContainer/MessageLabel
 
 @onready var wire_puzzle: Control = $WirePuzzle
 @onready var panel_puzzle: Control = $PanelPuzzle
-
-var dialogue_hide_timer: SceneTreeTimer = null
 
 func _ready() -> void:
 	update_health(3, 3)
@@ -28,6 +33,12 @@ func _ready() -> void:
 		prompt_label.visible = false
 	if dialogue_box:
 		dialogue_box.visible = false
+	if boss_container:
+		boss_container.visible = false
+	if victory_panel:
+		victory_panel.visible = false
+		if btn_restart_victory:
+			btn_restart_victory.pressed.connect(func(): get_tree().reload_current_scene())
 		
 	if wire_puzzle:
 		if wire_puzzle.has_signal("puzzle_completed"):
@@ -57,6 +68,25 @@ func set_prompt(visible_state: bool, prompt_text: String) -> void:
 		prompt_label.visible = visible_state
 		prompt_label.text = prompt_text
 
+func show_boss_bar(visible_state: bool) -> void:
+	if boss_container:
+		boss_container.visible = visible_state
+
+func update_boss_health(current_hp: int, max_hp: int) -> void:
+	if boss_container:
+		boss_container.visible = true
+	if boss_health_bar:
+		boss_health_bar.max_value = max_hp
+		boss_health_bar.value = current_hp
+	if boss_name_label:
+		boss_name_label.text = "CHEFE // UNIDADE B-04 [SISTEMA DE BOMBEAMENTO] - %d/%d" % [current_hp, max_hp]
+
+func show_victory() -> void:
+	if boss_container:
+		boss_container.visible = false
+	if victory_panel:
+		victory_panel.visible = true
+
 func on_capture_state_changed(is_captured: bool, pulses_remaining: int) -> void:
 	if capture_alert:
 		capture_alert.visible = is_captured
@@ -79,7 +109,7 @@ func show_dialogue(speaker: String, text: String) -> void:
 	
 	var current_time := Time.get_ticks_msec()
 	dialogue_box.set_meta("timestamp", current_time)
-	get_tree().create_timer(3.0).timeout.connect(func():
+	get_tree().create_timer(3.2).timeout.connect(func():
 		if is_instance_valid(dialogue_box) and dialogue_box.get_meta("timestamp", 0) == current_time:
 			dialogue_box.visible = false
 	)

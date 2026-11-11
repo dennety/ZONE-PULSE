@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://cbossarena001"]
+
+[ext_resource type="Script" path="res://scripts/boss_arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/boss.tscn" id="2_boss"]
+[ext_resource type="PackedScene" path="res://scenes/levels/locked_door.tscn" id="3_door"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trig"]
+size = Vector3(1.5, 6, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fh"]
+size = Vector3(14, 0.6, 3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwm"]
+transparency = 1
+albedo_color = Color(1, 0.4, 0.1, 0.5)
+emission_enabled = true
+emission = Color(1, 0.3, 0.05, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_fwmesh"]
+material = SubResource("StandardMaterial3D_fwm")
+size = Vector3(14, 0.15, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plat"]
+size = Vector3(4.5, 0.4, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plat"]
+albedo_color = Color(0.42, 0.46, 0.52, 1)
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_plat"]
+material = SubResource("StandardMaterial3D_plat")
+size = Vector3(4.5, 0.4, 3)
+
+[node name="BossArena" type="Node3D"]
+script = ExtResource("1_arena")
+
+[node name="ArenaTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArenaTrigger"]
+shape = SubResource("BoxShape3D_trig")
+
+[node name="EntryDoor" parent="." instance=ExtResource("3_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+is_open = true
+
+[node name="SafePlatform" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, 0)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafePlatform"]
+shape = SubResource("BoxShape3D_plat")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SafePlatform"]
+mesh = SubResource("BoxMesh_plat")
+
+[node name="FloorHazardArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 0)
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorHazardArea"]
+shape = SubResource("BoxShape3D_fh")
+
+[node name="FloorWarningMesh" type="MeshInstance3D" parent="FloorHazardArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+visible = false
+mesh = SubResource("BoxMesh_fwmesh")
+
+[node name="FloorLight" type="OmniLight3D" parent="FloorHazardArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+visible = false
+light_color = Color(1, 0.8, 0.1, 1)
+light_energy = 3.0
+omni_range = 8.0
+
+[node name="Boss" parent="." instance=ExtResource("2_boss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)
+
+[node name="ExitDoor" parent="." instance=ExtResource("3_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)

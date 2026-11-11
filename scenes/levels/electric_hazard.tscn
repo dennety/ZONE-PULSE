@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://chazard001"]
+[gd_scene format=3 uid="uid://cha0ard001"]
 
 [ext_resource type="Script" path="res://scripts/electric_hazard.gd" id="1_hazard"]
 
@@ -56,3 +56,4 @@ shape = SubResource("BoxShape3D_hs")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+

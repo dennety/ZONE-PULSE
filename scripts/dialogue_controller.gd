@@ -1,5 +1,4 @@
 extends Node
-class_name DialogueController
 
 signal dialogue_message(speaker: String, text: String)
 
@@ -32,6 +31,14 @@ var dialogues: Dictionary = {
 	"survivors_free": [
 		{"speaker": "Sobrevivente", "text": "Achamos que ninguém vinha..."},
 		{"speaker": "Lia", "text": "Vamos tirar vocês daqui. Sigam a rota segura!"}
+	],
+	"boss_encounter": [
+		{"speaker": "Nilo [Rádio]", "text": "Essa é a B-04! O núcleo térmico dela está exposto!"},
+		{"speaker": "Lia", "text": "Hora de desligar essa caldeira de uma vez."}
+	],
+	"boss_victory": [
+		{"speaker": "Lia", "text": "Estação desativada. O setor está livre!"},
+		{"speaker": "Nilo [Rádio]", "text": "Excelente trabalho, Lia! Missão cumprida com louvor!"}
 	]
 }
 
